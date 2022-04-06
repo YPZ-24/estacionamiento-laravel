@@ -22,15 +22,15 @@ class Card extends Model
 
     //Llaves foraneas
     public function CatCardType(){
-        return $this->hasOne(CatCardType::class);
+        return $this->belongsTo(CatCardType::class);
     }
 
     public function CatParkingPlace(){
-        return $this->hasOne(CatParkingPlace::class);
+        return $this->belongsTo(CatParkingPlace::class);
     }
 
-    public function Cars(){
-        return $this->hasOne(Car::class);
+    public function Car(){
+        return $this->belongsTo(Car::class);
     }
 
     public function CardDocument(){
