@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Building;
-use App\Model\Card;
+use App\Models\Building;
+use App\Models\Card;
 
 class CatParkingPlace extends Model
 {
@@ -17,6 +17,6 @@ class CatParkingPlace extends Model
     }
 
     public function Card(){
-        return $this->hasMany(Card::class);
+        return $this->hasOne(Card::class);
     }
 }

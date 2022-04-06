@@ -12,50 +12,30 @@ use App\Models\CatCardType;
 use App\Models\CatParkingPlace;
 use App\Models\Card;
 
-class DatabaseSeeder extends Seeder
-{
-    
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
+class DatabaseSeeder extends Seeder{
 
-        $cars = Car::factory(2);
-        $users = User::factory(10)->has(
-            $cars
-        );
-        $catParkingPlace = CatParkingPlace::factory(2);
+  public function run(){
 
-        $buildings = Building::factory(10)->has(
-            Apartment::factory(3)->has(
-                $users
-            )
-        )->has(
-            $catParkingPlace
-        );
+    Building::factory(5)
+      ->has(
+        Apartment::factory(30)->has(
+          User::factory(1)->has(
+            Car::factory(1)
+          )
+        )
+      )
+      ->has(CatParkingPlace::factory(30))
+      ->create();
 
-        $catCardType = CatCardType::factory()->count(3);
-        $cards = Card::factory()->count(2);
+    CatCardType::factory(3)->create();
 
-        $catCardType->has($cards)->create();
-        $cars->has($cards)->create();
-        $buildings->create();
-        
-
-        //
-
-
-        /*Card::factory(10)->make()->each(function ($card) {
-            $card->car()->associate(Car::all()->random(1));
-            //$card->catCardType()->associate(CatCardType::inRandomOrder()->first());
-            //$card->catParkingPlace()->associate(CatParkingPlace::inRandomOrder()->first());
-        })->save();*/
-
-        //User::factory(10)->has()->create();
-
-
+    for ($i = 1; $i <= 150; $i++){
+      Card::factory(1)
+        ->for(Car::all()->random(1)->unique()->first())
+        ->for(CatCardType::all()->random(1)->first())
+        ->for(CatParkingPlace::all()->random(1)->unique()->first())
+        ->create();
     }
+
+  }
 }
